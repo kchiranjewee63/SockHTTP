@@ -12,12 +12,15 @@ class Server:
         self.thread_pool_size = thread_pool_size
 
     def start(self, port):
-        server_socket = socket.socket()
-        server_socket.bind(('0.0.0.0', port))
-        server_socket.listen(self.backlog)
-        logging.info(f'Listening on port {port}...')
-        executor = ThreadPoolExecutor(max_workers = self.thread_pool_size)
-        while True:
-            client_socket, address = server_socket.accept()
-            logging.info(f"Connected to {address[0]}:{address[1]}")
-            executor.submit(threaded, self.handler, client_socket, address)
+        try:
+            server_socket = socket.socket()
+            server_socket.bind(('0.0.0.0', port))
+            server_socket.listen(self.backlog)
+            logging.info(f'Listening on port {port}...')
+            executor = ThreadPoolExecutor(max_workers = self.thread_pool_size)
+            while True:
+                client_socket, address = server_socket.accept()
+                logging.info(f'Connected to {address[0]}:{address[1]}')
+                executor.submit(threaded, self.handler, client_socket, address)
+        except Exception as e:
+            logging.info(f'An error encountered while starting the server: {e}')
