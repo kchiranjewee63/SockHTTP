@@ -1,5 +1,5 @@
 import re
-from request import readHttpRequest
+from request import Request
 from response import constructHeader, generateResponse
 import logging
 import json
@@ -11,12 +11,12 @@ def processRequest(handlers, request):
         logging.info(f"Received Request: {request}")
         path_match = None
         for handler in handlers.values():
-            if re.match(handler["pattern"], request["path"]):
-                path_match = request["path"]
-                if request["method"] == handler["method"]:
+            if re.match(handler["pattern"], request.headers["path"]):
+                path_match = request.headers["path"]
+                if request.headers["method"] == handler["method"]:
                     return handler["handler"](request)
         if path_match:
-            logging.error(f"Error. '{request['method']}' method not allowed for '{path_match}'")
+            logging.error(f"Error. '{request.headers['method']}' method not allowed for '{path_match}'")
             body = {
                 "error": {
                     "code": 405,
@@ -25,7 +25,7 @@ def processRequest(handlers, request):
             }
             return {"http-code": 405, "headers": {"Content-Type": "application/json"}, "body": json.dumps(body)}
         else:
-            logging.error(f"Error. '{request['path']}' not found")
+            logging.error(f"Error. '{request.headers['path']}' not found")
             body = {
                 "error": {
                     "code": 404,
@@ -51,7 +51,7 @@ def threaded(handlers, client_socket, address):
             break
 
         try:
-            httpRequest = readHttpRequest(request, client_socket)
+            httpRequest = Request(request, client_socket)
         except Exception as e:
             logging.error(f"Received an error while parsing the http request.\n {e}", e)
             client_socket.sendall(generateResponse(http_code = 400, body = "Request format incorrect"))

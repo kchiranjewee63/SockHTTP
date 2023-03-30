@@ -3,7 +3,7 @@ import http.client
 def constructHeader(httpRequest, handler_response):
     response_headers = {}
 
-    if httpRequest["headers"].get("Connection") == "keep-alive":
+    if httpRequest.headers.get("Connection") == "keep-alive":
         response_headers["Connection"] = "keep-alive"
 
     if handler_response and handler_response.get("body"):
