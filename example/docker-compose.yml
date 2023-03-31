@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  gateway:
+    image: gateway
+    environment:
+      - CATALOG_HOST=catalog
+      - CATALOG_PORT=7070
+      - ORDER_HOST=order
+      - ORDER_PORT=6060
+    build:
+      context: ../
+      dockerfile: ./example/Dockerfile.gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - catalog
+      - order
+
+  order:
+    image: order
+    environment:
+      - CATALOG_HOST=catalog
+      - CATALOG_PORT=7070
+    build:
+      context: ../
+      dockerfile: ./example/Dockerfile.order
+    ports:
+      - "6060:6060"
+    depends_on:
+      - catalog
+
+  catalog:
+    image: catalog
+    build:
+      context: ../
+      dockerfile: ./example/Dockerfile.catalog
+    ports:
+      - "7070:7070"
