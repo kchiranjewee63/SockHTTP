@@ -1,5 +1,5 @@
 import socket
-import Handler
+import handler
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -15,7 +15,7 @@ class Server:
     def start(self, port):
         try:
             self.server_socket = socket.socket()
-            self.handler = Handler.Handler(self.routes, self.thread_pool_size)
+            self.handler = handler.Handler(self.routes, self.thread_pool_size)
             self.server_socket.bind(('0.0.0.0', port))
             self.server_socket.listen(self.backlog)
             logging.info(f'Listening on port {port}...')

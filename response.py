@@ -1,28 +1,29 @@
 import http.client
+import logging
 
-def constructHeader(httpRequest, handler_response):
-    response_headers = {}
+logging.basicConfig(level=logging.DEBUG)
+class Response:
+    def __init__(self, http_code, body = None, headers = {}):
+        self.http_code = http_code
+        self.body = body
+        self.headers = {}
+        self.version = "HTTP/1.1"
+        if self.body:
+            self.headers["Content-Type"] = "text/html"
+            self.headers["Content-Length"] = str(len(body))
+        else:
+            self.headers["Content-Length"] = str(0)
+        self.headers.update(headers)
+        self.encoded_response = None
 
-    if httpRequest.headers.get("Connection") == "keep-alive":
-        response_headers["Connection"] = "keep-alive"
-
-    if handler_response and handler_response.get("body"):
-        response_headers["Content-Type"] = "text/html"
-        response_headers["Content-Length"] = str(len(handler_response["body"]))
-    else:
-        response_headers["Content-Length"] = str(0)
-
-    if handler_response and handler_response.get("headers"):
-        response_headers.update(handler_response["headers"])
-
-    return response_headers
-
-def generateResponse(http_code = 200, headers = {}, body = ""):
-    http_version = "HTTP/1.1"
-    status_text = http.client.responses.get(http_code, "Unknown")
-    status_line = f"{http_version} {http_code} {status_text}\r\n".encode()
-    encoded_headers = {key.encode(): value.encode() for key, value in headers.items()}
-    headers = b"\r\n".join([k + b": " + v for k, v in encoded_headers.items()])
-    body = body.encode()
-    response = status_line + headers + b"\r\n\r\n" + body
-    return response
+    def encode(self):
+        if self.encoded_response:
+            return self.encoded_response
+        else:
+            status_text = http.client.responses.get(self.http_code, "Unknown")
+            status_line = f"{self.version} {self.http_code} {status_text}\r\n".encode()
+            encoded_headers = {key.encode(): value.encode() for key, value in self.headers.items()}
+            headers = b"\r\n".join([k + b": " + v for k, v in encoded_headers.items()])
+            body = self.body.encode() if self.body else b""
+            self.encoded_response = status_line + headers + b"\r\n\r\n" + body
+            return self.encoded_response
