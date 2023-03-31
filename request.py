@@ -38,3 +38,6 @@ class Request:
         else:
             self._body = self.get_body()
             return self._body
+
+    def __str__(self):
+        return f'{self.headers["method"]} {self.headers["path"]}'
