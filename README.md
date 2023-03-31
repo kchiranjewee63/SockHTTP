@@ -8,10 +8,10 @@ and servers work. This project was created for educational purposes and aims to 
 of how HTTP servers and APIs are constructed from the ground up using sockets. The framework includes several key
 features, such as routing, support for HTTP methods, handling HTTP requests and responses, and thread pooling for
 concurrent request processing. Additionally, the repository includes
-[an example application consisting of three microservices](example/README.md#example-microservices) built using the
-SockHTTP framework. The application is designed to demonstrate how this simple framework can be used to build complex
-applications. Overall, SockHTTP provides a hands-on, educational experience that allows developers to gain a deeper
-understanding of HTTP APIs and servers.
+[an example application consisting of three microservices](https://github.com/kchiranjewee63/SockHTTP/tree/main/example)
+built using the SockHTTP framework. The application is designed to demonstrate how this simple framework can be used to
+build complex applications. Overall, SockHTTP provides a hands-on, educational experience that allows developers to gain
+a deeper understanding of HTTP APIs and servers.
 
 The code is written in python and is very simple to understand. The framework totally consists of only four files:
 `httpServer.py`, `handler.py`, `request.py`, and `response.py`.
@@ -56,5 +56,5 @@ httpServer = Server(routes, backlog = 5, thread_pool_size = 8)
 httpServer.start(8080)
 ```
 
-Check [this](example/README.md#example-microservices) for an example application consisting of three microservices
-build using this framework.
+Check [this](https://github.com/kchiranjewee63/SockHTTP/tree/main/example) for an example application consisting of
+three microservices build using this framework.
