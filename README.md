@@ -21,7 +21,7 @@ The code is written in python and is very simple to understand. The framework to
 A map that consists an entry for each API. And for each API, it consists of a regular expression representing the
 path URL of the API, its HTTP method type(GET, POST, ...), and the function that processes the particular API requests.
 The function takes the request as argument and return the response. The framework parses a http request
-and sends the Request Object to the handler method. The method should return a Response Object. The framework encodes
+and call the function with the Request Object. The function should return a Response Object. The framework encodes
 the Response Object and response to the request.
 
 2. `backlog`
