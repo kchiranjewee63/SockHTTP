@@ -9,8 +9,8 @@ class Server:
         self.routes = routes
         self.backlog = backlog
         self.thread_pool_size = thread_pool_size
-        self.handler = None
         self.server_socket = None
+        self.handler = None
 
     def start(self, port):
         try:

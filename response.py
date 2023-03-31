@@ -14,16 +14,11 @@ class Response:
         else:
             self.headers["Content-Length"] = str(0)
         self.headers.update(headers)
-        self.encoded_response = None
 
     def encode(self):
-        if self.encoded_response:
-            return self.encoded_response
-        else:
-            status_text = http.client.responses.get(self.http_code, "Unknown")
-            status_line = f"{self.version} {self.http_code} {status_text}\r\n".encode()
-            encoded_headers = {key.encode(): value.encode() for key, value in self.headers.items()}
-            headers = b"\r\n".join([k + b": " + v for k, v in encoded_headers.items()])
-            body = self.body.encode() if self.body else b""
-            self.encoded_response = status_line + headers + b"\r\n\r\n" + body
-            return self.encoded_response
+        status_text = http.client.responses.get(self.http_code, "Unknown")
+        status_line = f"{self.version} {self.http_code} {status_text}\r\n".encode()
+        encoded_headers = {key.encode(): value.encode() for key, value in self.headers.items()}
+        headers = b"\r\n".join([k + b": " + v for k, v in encoded_headers.items()])
+        body = self.body.encode() if self.body else b""
+        return status_line + headers + b"\r\n\r\n" + body
