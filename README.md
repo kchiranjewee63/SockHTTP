@@ -7,18 +7,18 @@ SockHTTP is an HTTP framework built from socket programming, designed to help de
 and servers work. This project was created for educational purposes and aims to provide a practical demonstration
 of how HTTP servers and APIs are constructed from the ground up using sockets. The framework includes several key
 features, such as routing, support for HTTP methods, handling HTTP requests and responses, and thread pooling for
-concurrent request processing. Additionally, the framework includes
-[an example of microservices](example/README.md#example-microservices) built using the SockHTTP framework. These
-microservices have been designed to demonstrate how the framework can be used to build complex applications. Overall,
-SockHTTP provides a hands-on, educational experience that allows developers to gain a deeper understanding of HTTP APIs
-and servers.
+concurrent request processing. Additionally, the repository includes
+[an example application consisting of three microservices](example/README.md#example-microservices) built using the
+SockHTTP framework. The application is designed to demonstrate how this simple framework can be used to build complex
+applications. Overall, SockHTTP provides a hands-on, educational experience that allows developers to gain a deeper
+understanding of HTTP APIs and servers.
 
 The code is written in python and is very simple to understand. The framework totally consists of only four files:
 `httpServer.py`, `handler.py`, `request.py`, and `response.py`.
 
 ### How to use the framework to build HTTP servers
 
-`httpServer.py` provides `Server` class. Create an object of the class. The constructor takes three arguments:
+`httpServer.py` provides `Server` class. The class's constructor takes three arguments:
 
 1. `routes`
 A map that consists an entry for each API. And for each API, it consists of a regular expression representing the
@@ -35,7 +35,7 @@ This is basically passed as the argument to server's
 3. `thread_pool_size`
 The maximum number of threads in the server's thread pool.
 
-After creating the object of Server call, call `start` method on the object, which takes a port number as the argument.
+Create an object of the class, and call `start` method on the object, which takes a port number as the argument.
 
 For instance, the below server provides an API `GET /reverse` to reverse the request body and runs at port number `8080`
 
@@ -56,4 +56,5 @@ httpServer = Server(routes, backlog = 5, thread_pool_size = 8)
 httpServer.start(8080)
 ```
 
-Check [this](example/README.md#example-microservices) for an example of building microservices using this framework.
+Check [this](example/README.md#example-microservices) for an example application that consists of three microservices
+build using this framework.
