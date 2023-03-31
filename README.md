@@ -1,9 +1,6 @@
 # SockHTTP: An HTTP framework built with sockets
 
 SockHTTP is an HTTP framework built from socket programming, designed to help developers better understand how HTTP APIs
-and servers work.
-
-SockHTTP is an HTTP framework built from socket programming, designed to help developers better understand how HTTP APIs
 and servers work. This project was created for educational purposes and aims to provide a practical demonstration
 of how HTTP servers and APIs are constructed from the ground up using sockets. The framework includes several key
 features, such as routing, support for HTTP methods, handling HTTP requests and responses, and thread pooling for
