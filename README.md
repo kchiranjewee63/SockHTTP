@@ -27,7 +27,8 @@ the Response Object and response to the request.
 2. `backlog`
 The maximum number of connections that can be waiting in the queue while the server is processing previous requests.
 This is basically passed as the argument to server's
-[socket listen method](https://docs.python.org/3/library/socket.html#:~:text=socket.listen(%5Bbacklog%5D)).
+[socket listen method](https://docs.python.org/3/library/socket.html#:~:text=socket.listen(%5Bbacklog%5D)). It's
+default value is 5.
 
 3. `thread_pool_size`
 The maximum number of threads in the server's thread pool.
@@ -49,7 +50,7 @@ routes = {"Reverse": {"pattern": r'^/reverse$',
                       "method": "GET",
                       "handler": reverseBody}}
 
-httpServer = Server(routes, backlog = 5, thread_pool_size = 8)
+httpServer = Server(routes, thread_pool_size = 8)
 httpServer.start(8080)
 ```
 
