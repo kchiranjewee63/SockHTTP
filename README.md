@@ -1,4 +1,4 @@
-# SockHTTP: An educational HTTP framework built with sockets
+# SockHTTP: An HTTP framework built with sockets
 
 SockHTTP is an HTTP framework built from socket programming, designed to help developers better understand how HTTP APIs
 and servers work.
