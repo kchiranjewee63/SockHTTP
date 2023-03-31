@@ -37,7 +37,7 @@ The maximum number of threads in the server's thread pool.
 
 Create an object of the class, and call `start` method on the object, which takes a port number as the argument.
 
-For instance, the below server provides an API `GET /reverse` to reverse the request body and runs at port number `8080`
+For instance, the below server provides an API `GET /reverse` to reverse the request body and runs at port number `8080`.
 
 ```python
 from SockHTTP.httpServer import Server
@@ -56,5 +56,5 @@ httpServer = Server(routes, backlog = 5, thread_pool_size = 8)
 httpServer.start(8080)
 ```
 
-Check [this](example/README.md#example-microservices) for an example application that consists of three microservices
+Check [this](example/README.md#example-microservices) for an example application consisting of three microservices
 build using this framework.
