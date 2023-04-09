@@ -1,5 +1,6 @@
 from routes import orderHandler
+from SockHTTP.request import Method
 
 app = {"order":   {"pattern": r'^/order/orders$',
-                   "method": "POST",
+                   "method": Method.POST,
                    "handler": orderHandler}}

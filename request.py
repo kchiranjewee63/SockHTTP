@@ -1,3 +1,5 @@
+from enum import Enum
+
 class Request:
     def __init__(self, raw_request, client_socket):
         self.raw_request = raw_request.decode()
@@ -41,3 +43,10 @@ class Request:
 
     def __str__(self):
         return f'{self.headers["method"]} {self.headers["path"]}'
+
+class Method(Enum):
+    GET = 'GET'
+    POST = 'POST'
+    PUT = 'PUT'
+    PATCH = 'PATCH'
+    DELETE = 'DELETE'

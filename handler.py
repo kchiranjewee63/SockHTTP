@@ -41,7 +41,7 @@ class Handler:
             for handler in self.routes.values():
                 if re.match(handler["pattern"], request.headers["path"]):
                     path_match = request.headers["path"]
-                    if request.headers["method"] == handler["method"]:
+                    if request.headers["method"] == handler["method"].value:
                         return handler["handler"](request)
             if path_match:
                 logging.error(f"Error. '{request.headers['method']}' method not allowed for '{path_match}'")

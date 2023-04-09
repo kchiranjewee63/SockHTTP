@@ -40,6 +40,7 @@ For instance, the below server provides an API `GET /reverse` to reverse the req
 ```python
 from SockHTTP.httpServer import Server
 from SockHTTP.response import Response
+from SockHTTP.request import Method
 
 def reverseBody(Request):
     request_body = Request.body
@@ -47,7 +48,7 @@ def reverseBody(Request):
     return Response(200, response_body)
     
 routes = {"Reverse": {"pattern": r'^/reverse$',
-                      "method": "GET",
+                      "method": Method.GET,
                       "handler": reverseBody}}
 
 httpServer = Server(routes, thread_pool_size = 8)

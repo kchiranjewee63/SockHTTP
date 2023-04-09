@@ -1,8 +1,9 @@
 from routes import lookUpHandler, orderHandler
+from SockHTTP.request import Method
 
 app = {"look-up": {"pattern": r'^/stocks/([a-zA-Z]+)$',
-                         "method": "GET", 
+                         "method": Method.GET,
                          "handler": lookUpHandler},
        "order":   {"pattern": r'^/orders$',
-                         "method": "POST",
+                         "method": Method.POST,
                          "handler": orderHandler}}
