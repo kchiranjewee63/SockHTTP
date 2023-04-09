@@ -1,4 +1,4 @@
-from SockHTTP import response
+from SockHTTP.response import Response
 import json
 import requests
 import logging
@@ -30,7 +30,7 @@ def orderHandler(request):
                     "transaction_number": transaction_number
                 }
             }
-            return response.Response(200, json.dumps(body), {"Content-Type": "application/json"})
+            return Response(200, json.dumps(body), {"Content-Type": "application/json"})
     else:
         logging.error(f"Received a {catalog_http_code} error from the catalog service: {catalog_body}")
-        return response.Response(catalog_http_code, catalog_body, {"Content-Type": catalog_headers["Content-Type"]})
+        return Response(catalog_http_code, catalog_body, {"Content-Type": catalog_headers["Content-Type"]})

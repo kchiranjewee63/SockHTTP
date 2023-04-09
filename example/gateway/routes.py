@@ -1,4 +1,4 @@
-from SockHTTP import response
+from SockHTTP.response import Response
 import json
 import requests
 import os
@@ -14,7 +14,7 @@ def lookUpHandler(request):
     headers = catalog_response.headers
     body = catalog_response.text
     catalog_response.close()
-    return response.Response(http_code, body, {"Content-Type": headers["content-type"]})
+    return Response(http_code, body, {"Content-Type": headers["content-type"]})
 
 def orderHandler(request):
     order_response = requests.post(f"http://{order_host}:{order_port}/order/orders", json = json.loads(request.body))
@@ -22,4 +22,4 @@ def orderHandler(request):
     headers = order_response.headers
     body = order_response.text
     order_response.close()
-    return response.Response(http_code, body, {"Content-Type": headers["content-type"]})
+    return Response(http_code, body, {"Content-Type": headers["content-type"]})

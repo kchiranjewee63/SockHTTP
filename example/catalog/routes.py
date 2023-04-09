@@ -1,4 +1,4 @@
-from SockHTTP import response
+from SockHTTP.response import Response
 import re
 import json
 import logging
@@ -24,7 +24,7 @@ def lookUpHandler(request):
                 }
             }
             logging.error(f"Stock {share} not found.")
-            return response.Response(404, json.dumps(body), {"Content-Type": "application/json"})
+            return Response(404, json.dumps(body), {"Content-Type": "application/json"})
         body = {
             "data": {
                 "name": share_name,
@@ -32,7 +32,7 @@ def lookUpHandler(request):
                 "quantity": share["Available"]
             }
         }
-        return response.Response(200, json.dumps(body), {"Content-Type": "application/json"})
+        return Response(200, json.dumps(body), {"Content-Type": "application/json"})
 
 def orderHandler(request):
     request_body = json.loads(request.body)
@@ -46,16 +46,16 @@ def orderHandler(request):
                 }
             }
             logging.error(f"Stock {share_name} not found.")
-            return response.Response(404, json.dumps(body), {"Content-Type": "application/json"})
+            return Response(404, json.dumps(body), {"Content-Type": "application/json"})
         if operation == "sell":
             catalog[share_name].update({"Available": catalog[share_name]["Available"] + quantity,
                                                     "Volume": catalog[share_name]["Volume"] + quantity})
-            return response.Response(200)
+            return Response(200)
         elif operation == "buy":
             if catalog[share_name]["Available"] >= quantity:
                 catalog[share_name].update({"Available": catalog[share_name]["Available"] - quantity,
                                                     "Volume": catalog[share_name]["Volume"] + quantity})
-                return response.Response(200)
+                return Response(200)
             else:
                 body = {
                     "error": {
@@ -64,7 +64,7 @@ def orderHandler(request):
                     }
                 }
                 logging.error(f"{quantity} of {share_name} not available to buy")
-                return response.Response(400, json.dumps(body), {"Content-Type": "application/json"})
+                return Response(400, json.dumps(body), {"Content-Type": "application/json"})
         else:
             body = {
                 "error": {
@@ -73,4 +73,4 @@ def orderHandler(request):
                 }
             }
             logging.error(f"Incorrect operation type {operation} provided in the request.")
-            return response.Response(400, json.dumps(body), {"Content-Type": "application/json"})
+            return Response(400, json.dumps(body), {"Content-Type": "application/json"})
