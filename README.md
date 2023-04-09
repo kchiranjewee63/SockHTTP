@@ -44,7 +44,7 @@ from SockHTTP.request import Method
 
 def reverseBody(Request):
     request_body = Request.body
-    response_body = request_body[-1:]
+    response_body = request_body[::-1]
     return Response(200, response_body)
     
 routes = {"Reverse": {"pattern": r'^/reverse$',
