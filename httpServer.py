@@ -1,6 +1,7 @@
 import socket
 import handler
 import logging
+import traceback
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -25,3 +26,4 @@ class Server:
                 self.handler.handle(client_socket, address)
         except Exception as e:
             logging.info(f'An error encountered while starting the server: {e}')
+            logging.error(traceback.format_exc())

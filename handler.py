@@ -3,6 +3,7 @@ from request import Request
 from response import Response
 import logging
 from concurrent.futures import ThreadPoolExecutor
+import traceback
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -21,6 +22,7 @@ class Handler:
                 httpRequest = Request(request, client_socket)
             except Exception as e:
                 logging.error(f"Received an error while parsing the http request.\n {e}", e)
+                logging.error(traceback.format_exc())
                 client_socket.sendall(Response(400, "Request format incorrect"))
                 break
             response = self.processRequest(httpRequest)
@@ -51,6 +53,7 @@ class Handler:
                 return Response(404)
         except Exception as e:
             logging.error(f"Received an error while processing the request.\n {e}")
+            logging.error(traceback.format_exc())
             return Response(500)
 
     def handle(self, client_socket, address):
