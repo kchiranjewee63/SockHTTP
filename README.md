@@ -42,8 +42,8 @@ from SockHTTP.httpServer import Server
 from SockHTTP.response import Response
 from SockHTTP.request import Method
 
-def reverseBody(Request):
-    request_body = Request.body
+def reverseBody(request):
+    request_body = request.body
     response_body = request_body[::-1]
     return Response(200, response_body)
     
@@ -51,8 +51,8 @@ routes = {"Reverse": {"pattern": r'^/reverse$',
                       "method": Method.GET,
                       "handler": reverseBody}}
 
-httpServer = Server(routes, thread_pool_size = 8)
-httpServer.start(8080)
+http_server = Server(routes, thread_pool_size = 8)
+http_server.start(8080)
 ```
 
 Check [this](https://github.com/kchiranjewee63/SockHTTP/tree/main/example) for an example application consisting of
